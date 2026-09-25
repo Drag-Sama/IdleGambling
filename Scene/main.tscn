@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://c7sufmx758hp2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5v3e5"]
+bg_color = Color(0.64360905, 0.44866472, 0.5799178, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uiwfw"]
+bg_color = Color(0.755591, 0.56039196, 0.22410941, 1)
+
+[node name="Main" type="Control" unique_id=694501630]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2097608915]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="PanelContainer" parent="MarginContainer" unique_id=1128216755]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5v3e5")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Background" unique_id=2045056154]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Background/MarginContainer" unique_id=282118722]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Sidebar" type="PanelContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer" unique_id=1746759364]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_uiwfw")
+
+[node name="MainContainer" type="PanelContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer" unique_id=1226170746]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.86
+theme_override_styles/panel = SubResource("StyleBoxFlat_uiwfw")
