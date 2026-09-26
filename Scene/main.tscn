@@ -1,10 +1,18 @@
 [gd_scene format=3 uid="uid://c7sufmx758hp2"]
 
+[ext_resource type="Script" uid="uid://or4ssiyofrmi" path="res://Scripts/moneyInterface.gd" id="1_sblpm"]
+[ext_resource type="Script" uid="uid://be01rqdcai0k2" path="res://Scripts/Ticket/TicketMain.gd" id="2_sblpm"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5v3e5"]
 bg_color = Color(0.64360905, 0.44866472, 0.5799178, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uiwfw"]
 bg_color = Color(0.755591, 0.56039196, 0.22410941, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_sblpm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f64mx"]
+bg_color = Color(0.31286123, 0.63393635, 0.8499116, 1)
 
 [node name="Main" type="Control" unique_id=694501630]
 layout_mode = 3
@@ -13,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_sblpm")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=2097608915]
 layout_mode = 1
@@ -42,8 +51,31 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_uiwfw")
 
-[node name="MainContainer" type="PanelContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer" unique_id=1226170746]
+[node name="Money" type="Label" parent="MarginContainer/Background/MarginContainer/HBoxContainer/Sidebar" unique_id=1670914291]
+layout_mode = 2
+text = "Money:0"
+label_settings = SubResource("LabelSettings_sblpm")
+
+[node name="TicketMainContainer" type="PanelContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer" unique_id=1226170746]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.86
 theme_override_styles/panel = SubResource("StyleBoxFlat_uiwfw")
+script = ExtResource("2_sblpm")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/TicketMainContainer" unique_id=1532462762]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="BuyButton" type="Button" parent="MarginContainer/Background/MarginContainer/HBoxContainer/TicketMainContainer/MarginContainer" unique_id=911768733]
+custom_minimum_size = Vector2(170, 40)
+custom_maximum_size = Vector2(300, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_f64mx")
+
+[connection signal="pressed" from="MarginContainer/Background/MarginContainer/HBoxContainer/TicketMainContainer/MarginContainer/BuyButton" to="MarginContainer/Background/MarginContainer/HBoxContainer/TicketMainContainer" method="_on_buy_button_pressed"]
