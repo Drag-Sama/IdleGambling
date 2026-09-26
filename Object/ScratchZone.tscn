@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bjn3cp6ohcdh4"]
+
+[ext_resource type="Script" uid="uid://dnee45p5uqtch" path="res://Scripts/Ticket/ScratchZone.gd" id="1_02lon"]
+[ext_resource type="Script" uid="uid://b6avutqa6ue46" path="res://Scripts/Ticket/mask.gd" id="1_g00n1"]
+[ext_resource type="Shader" uid="uid://cgi7jmk7oqytl" path="res://Shader/TicketMask.gdshader" id="2_0fww0"]
+[ext_resource type="Texture2D" uid="uid://7xy6het0opmm" path="res://Assets/Sprite/Ticket/Base.png" id="3_02lon"]
+[ext_resource type="Texture2D" uid="uid://dais0aocd0vqf" path="res://Assets/Sprite/Ticket/Win.png" id="3_rb5be"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rb5be"]
+shader = ExtResource("2_0fww0")
+
+[node name="Main" type="Node2D" unique_id=944784523]
+script = ExtResource("1_02lon")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=2027488816]
+size = Vector2i(640, 640)
+
+[node name="Drawing" type="Node2D" parent="SubViewport" unique_id=1270328330]
+script = ExtResource("1_g00n1")
+
+[node name="Result" type="TextureRect" parent="." unique_id=1238157172]
+offset_left = 71.0
+offset_top = 473.0
+offset_right = 251.0
+offset_bottom = 653.0
+texture = ExtResource("3_rb5be")
+
+[node name="Mask" type="TextureRect" parent="." unique_id=1014237542]
+material = SubResource("ShaderMaterial_rb5be")
+offset_left = 71.0
+offset_top = 473.0
+offset_right = 251.0
+offset_bottom = 653.0
+texture = ExtResource("3_02lon")
