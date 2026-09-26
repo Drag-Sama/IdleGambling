@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bqjyxwq2c80hx"]
+
+[ext_resource type="Texture2D" uid="uid://bhdf7ygvlcbol" path="res://Assets/Sprite/Ticket/Ticket.png" id="1_m8yfi"]
+[ext_resource type="Texture2D" uid="uid://dais0aocd0vqf" path="res://Assets/Sprite/Ticket/Win.png" id="2_5dqmm"]
+[ext_resource type="Texture2D" uid="uid://7xy6het0opmm" path="res://Assets/Sprite/Ticket/Base.png" id="3_7g228"]
+
+[node name="Control" type="Control" unique_id=1115232553]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="." unique_id=893134003]
+layout_mode = 0
+offset_right = 968.0
+offset_bottom = 928.0
+texture = ExtResource("1_m8yfi")
+
+[node name="Result-1" type="TextureRect" parent="Background" unique_id=539289506]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 473.0
+offset_right = 251.0
+offset_bottom = 653.0
+texture = ExtResource("2_5dqmm")
+
+[node name="Mask-1" type="TextureRect" parent="Background" unique_id=994340318]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 473.0
+offset_right = 111.0
+offset_bottom = 513.0
+texture = ExtResource("3_7g228")
