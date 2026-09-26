@@ -12,7 +12,25 @@ bg_color = Color(0.755591, 0.56039196, 0.22410941, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_sblpm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f64mx"]
-bg_color = Color(0.31286123, 0.63393635, 0.8499116, 1)
+bg_color = Color(0.3175655, 0.57691777, 0.8955186, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sblpm"]
+bg_color = Color(0.19067332, 0.44969678, 0.75689185, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r34rm"]
+bg_color = Color(0.25799876, 0.52663964, 0.8513023, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Main" type="Control" unique_id=694501630]
 layout_mode = 3
@@ -77,5 +95,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_f64mx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_sblpm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_r34rm")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f64mx")
+theme_override_styles/focus = SubResource("StyleBoxFlat_f64mx")
+text = "Buy"
 
 [connection signal="pressed" from="MarginContainer/Background/MarginContainer/HBoxContainer/TicketMainContainer/MarginContainer/BuyButton" to="MarginContainer/Background/MarginContainer/HBoxContainer/TicketMainContainer" method="_on_buy_button_pressed"]
