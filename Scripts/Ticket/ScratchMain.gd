@@ -19,8 +19,10 @@ var _hold_timer: Timer
 var _zone_revealed = 0
 var _ticket_value = 0
 
-var _max_zone_value = 1
+var _max_zone_value = 2
 var _min_zone_value = 0
+
+signal is_selected()
 
 func _ready():
 	claim.visible = false
@@ -45,6 +47,7 @@ func _spawn(pos: Vector2): #Fais spawn une zone
 	scratchZone_instance.position = pos
 	scratchZone_instance.value = randi_range(_min_zone_value, _max_zone_value)
 	scratchZone_instance.revealed.connect(_on_zone_revealed)
+	self.is_selected.connect(scratchZone_instance.on_selected)
 	background.add_child(scratchZone_instance)
 
 func _on_zone_revealed(value): #Quand une zone est suffisament révélé
@@ -59,9 +62,10 @@ func _on_zone_revealed(value): #Quand une zone est suffisament révélé
 		
 
 func _on_background_gui_input(event: InputEvent) -> void: #Se déclenche quand on clique sur le ticket
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton && !_is_selected:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
+				self.z_index = 0
 				_is_holding = false
 				_is_dragging = false
 				_hold_timer.start()
@@ -71,8 +75,9 @@ func _on_background_gui_input(event: InputEvent) -> void: #Se déclenche quand o
 				if _hold_timer.time_left > 0 and not _is_dragging: #Quand on clique
 					_hold_timer.stop()
 					_is_selected = true
+					is_selected.emit()
 					_selected_animation()
-					
+				
 				_is_holding = false
 				_is_dragging = false
 
@@ -82,10 +87,13 @@ func _on_background_gui_input(event: InputEvent) -> void: #Se déclenche quand o
 
 func _on_hold_timeout() -> void: #Quand on maintient le clique sur le ticket
 	if !_is_selected:
+		self.z_index = 1
 		_is_holding = true
 		_is_dragging = true
 		
 func _selected_animation() -> void: #Animation quand on clique sur le ticket
+	self.z_index = 10
+	
 	var target_scale = 0.5
 	var target_position = get_viewport_rect().size / 2
 
@@ -97,6 +105,8 @@ func _selected_animation() -> void: #Animation quand on clique sur le ticket
 	tween.tween_property(self, "global_position", Vector2(target_position.x, target_position.y - 100), 0.4)
 	tween.tween_property(self, "rotation", 0.0, 0.4)
 	tween.tween_property(self, "scale", Vector2(target_scale, target_scale), 0.4)
+	
+	print(self.z_index)
 
 
 func _on_claim_pressed() -> void:

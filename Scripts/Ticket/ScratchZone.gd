@@ -7,12 +7,15 @@ extends Node2D
 
 const LOSE = preload("uid://by6hk74ygt2tq")
 const WIN = preload("uid://dais0aocd0vqf")
-const SPRITES = [LOSE, WIN]
+const WIN_2 = preload("uid://btawhlyx8cd56")
+
+const SPRITES = [LOSE, WIN, WIN_2]
 
 signal revealed(value)
+var is_selected = false
 
 var already_won = false
-const WIN_THRESHOLD = 70.0
+const WIN_THRESHOLD = 60.0
 var value = null 
 
 func _ready():
@@ -27,15 +30,16 @@ func _ready():
 	result.texture = SPRITES[value]
 
 func _process(_delta):
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if mask.get_global_rect().has_point(get_global_mouse_position()):
-			var local_pos = mask.get_local_mouse_position()
-			if mask.size.x > 0 and mask.size.y > 0:
-				var ratio = Vector2(sub_viewport.size) / mask.size
-				local_pos *= ratio
-				drawing.draw_at(local_pos)
-	else:
-		drawing.reset_stroke()
+	if is_selected:
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			if mask.get_global_rect().has_point(get_global_mouse_position()):
+				var local_pos = mask.get_local_mouse_position()
+				if mask.size.x > 0 and mask.size.y > 0:
+					var ratio = Vector2(sub_viewport.size) / mask.size
+					local_pos *= ratio
+					drawing.draw_at(local_pos)
+		else:
+			drawing.reset_stroke()
 	
 	await RenderingServer.frame_post_draw
 	var tex = sub_viewport.get_texture()
@@ -61,3 +65,6 @@ func _check_scratch_percentage():
 	if percentage >= WIN_THRESHOLD:
 		already_won = true
 		revealed.emit(value)
+
+func on_selected():
+	is_selected = true

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://be01rqdcai0k2" path="res://Scripts/Ticket/TicketMain.gd" id="2_sblpm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5v3e5"]
-bg_color = Color(0.64360905, 0.44866472, 0.5799178, 1)
+bg_color = Color(0.6071361, 0.4745199, 0.5424723, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uiwfw"]
 bg_color = Color(0.755591, 0.56039196, 0.22410941, 1)
