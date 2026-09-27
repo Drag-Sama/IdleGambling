@@ -3,7 +3,7 @@ extends PanelContainer
 var ticket = preload("res://Object/Ticket.tscn")
 
 func _on_buy_button_pressed() -> void:
-	MoneyManager.updateMoney(-10)
+	MoneyManager.updateMoney(-2)
 	var ticket_instance = ticket.instantiate()
 	
 	var horizontal_position = randf_range(100.0, 600.0)

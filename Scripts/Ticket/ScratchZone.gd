@@ -3,10 +3,28 @@ extends Node2D
 @onready var sub_viewport = $SubViewport
 @onready var drawing = $SubViewport/Drawing
 @onready var mask = $Mask
+@onready var result: TextureRect = $Result
+
+const LOSE = preload("uid://by6hk74ygt2tq")
+const WIN = preload("uid://dais0aocd0vqf")
+const SPRITES = [LOSE, WIN]
+
+signal revealed(value)
+
+var already_won = false
+const WIN_THRESHOLD = 70.0
+var value = null 
 
 func _ready():
 	mask.material = mask.material.duplicate() 
 	sub_viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_NEVER
+	var timer = Timer.new()
+	timer.wait_time = 0.3  # vérifie 3 fois par seconde, ajustable
+	timer.timeout.connect(_check_scratch_percentage)
+	add_child(timer)
+	timer.start()
+	
+	result.texture = SPRITES[value]
 
 func _process(_delta):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -22,3 +40,24 @@ func _process(_delta):
 	await RenderingServer.frame_post_draw
 	var tex = sub_viewport.get_texture()
 	mask.material.set_shader_parameter("mask_texture", tex)
+	
+func _check_scratch_percentage():
+	if already_won:
+		return
+	
+	var img = sub_viewport.get_texture().get_image()
+	img.resize(64, 64, Image.INTERPOLATE_BILINEAR)
+	
+	var scratched_pixels = 0
+	var total_pixels = 64 * 64
+	
+	for y in 64:
+		for x in 64:
+			if img.get_pixel(x, y).r > 0.5:
+				scratched_pixels += 1
+	
+	var percentage = float(scratched_pixels) / float(total_pixels) * 100.0
+	
+	if percentage >= WIN_THRESHOLD:
+		already_won = true
+		revealed.emit(value)
