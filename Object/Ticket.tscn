@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bqjyxwq2c80hx"]
+
+[ext_resource type="Script" uid="uid://dkoq0toa1adhr" path="res://Scripts/Ticket/ScratchMain.gd" id="1_5dqmm"]
+[ext_resource type="Texture2D" uid="uid://bhdf7ygvlcbol" path="res://Assets/Sprite/Ticket/Ticket.png" id="1_m8yfi"]
+
+[node name="Main" type="Node2D" unique_id=1969167525]
+script = ExtResource("1_5dqmm")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1532319264]
+offset_left = -14.0
+offset_top = -209.0
+offset_right = 954.0
+offset_bottom = 719.0
+texture = ExtResource("1_m8yfi")
+flip_v = true
+
+[node name="Claim" type="Button" parent="." unique_id=1830513142]
+offset_left = 221.0
+offset_top = 735.0
+offset_right = 641.0
+offset_bottom = 837.0
+theme_override_font_sizes/font_size = 64
+text = "Claim"
+
+[connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
+[connection signal="pressed" from="Claim" to="." method="_on_claim_pressed"]
