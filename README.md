@@ -9,4 +9,8 @@ Différente machine dans l'ordre:
 -Black jack
 -Roulette russe
 
-Système de combo
+Mécaniques : 
+- Système de combo ?
+- Machine 1 fait scale machine 2 ?
+- Gambling réductions / augmentations de prix des upgrades ?
+- Drop d'items ? (gambling sur l'item -> devient item gold ou jsp et multiplie ses stats)
