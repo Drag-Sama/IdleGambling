@@ -27,9 +27,14 @@ func _ready():
 	add_child(timer)
 	timer.start()
 	
-	result.texture = SPRITES[value]
+	#Setup le sprite selon la valeur de la zone
+	if(value < SPRITES.size()):
+		result.texture = SPRITES[value]
+	else:
+		result.texture = SPRITES[0] #ça devrait pas arriver mais on sait jamais
+		print("ERROR: Value not in range")
 
-func _process(_delta):
+func _process(_delta): #Permet de gratter la zone
 	if is_selected:
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			if mask.get_global_rect().has_point(get_global_mouse_position()):
@@ -45,7 +50,7 @@ func _process(_delta):
 	var tex = sub_viewport.get_texture()
 	mask.material.set_shader_parameter("mask_texture", tex)
 	
-func _check_scratch_percentage():
+func _check_scratch_percentage(): #Vérifie le pourcentage de zone gratté
 	if already_won:
 		return
 	
@@ -65,6 +70,13 @@ func _check_scratch_percentage():
 	if percentage >= WIN_THRESHOLD:
 		already_won = true
 		revealed.emit(value)
+		if(value != 0):
+			reveale_animation()
 
 func on_selected():
 	is_selected = true
+
+func reveale_animation():
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color.YELLOW, 0.2)
+	tween.tween_property(self, "modulate", Color.WHITE, 0.3)
