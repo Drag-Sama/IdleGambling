@@ -21,8 +21,14 @@ var _ticket_value = 0
 
 var _max_zone_value = 2
 var _min_zone_value = 0
+var _value_proba = [40, 30, 30]
 
 signal is_selected()
+
+static var current_selected: Node = null
+
+func _can_interact() -> bool:
+	return current_selected == null or current_selected == self
 
 func _ready():
 	claim.visible = false
@@ -42,10 +48,19 @@ func _ready():
 	for i in range(INSTANCE_COUNT):
 		_spawn(Vector2(space * i, 200))
 
+func _get_random_value():
+	var random_value = randi_range(1, 100)
+	var proba = 0
+	for i in range(_min_zone_value, _max_zone_value+1):
+		proba += _value_proba[i]
+		if random_value < proba:
+			return i
+		
+
 func _spawn(pos: Vector2): #Fais spawn une zone
 	var scratchZone_instance = scratchZone.instantiate()
 	scratchZone_instance.position = pos
-	scratchZone_instance.value = randi_range(_min_zone_value, _max_zone_value)
+	scratchZone_instance.value = _get_random_value()
 	scratchZone_instance.revealed.connect(_on_zone_revealed)
 	self.is_selected.connect(scratchZone_instance.on_selected)
 	background.add_child(scratchZone_instance)
@@ -62,6 +77,9 @@ func _on_zone_revealed(value): #Quand une zone est suffisament révélé
 		
 
 func _on_background_gui_input(event: InputEvent) -> void: #Se déclenche quand on clique sur le ticket
+	if not _can_interact():
+		return  # un autre ticket est sélectionné
+
 	if event is InputEventMouseButton && !_is_selected:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
@@ -75,6 +93,7 @@ func _on_background_gui_input(event: InputEvent) -> void: #Se déclenche quand o
 				if _hold_timer.time_left > 0 and not _is_dragging: #Quand on clique
 					_hold_timer.stop()
 					_is_selected = true
+					current_selected = self 
 					is_selected.emit()
 					_selected_animation()
 				
@@ -105,10 +124,12 @@ func _selected_animation() -> void: #Animation quand on clique sur le ticket
 	tween.tween_property(self, "global_position", Vector2(target_position.x, target_position.y - 100), 0.4)
 	tween.tween_property(self, "rotation", 0.0, 0.4)
 	tween.tween_property(self, "scale", Vector2(target_scale, target_scale), 0.4)
-	
-	print(self.z_index)
 
 
 func _on_claim_pressed() -> void:
 	MoneyManager.updateMoney(_ticket_value)
 	self.queue_free()
+
+func _exit_tree() -> void: #Lorsqu'on supprime le ticket
+	if current_selected == self:
+		current_selected = null

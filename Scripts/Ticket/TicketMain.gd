@@ -2,7 +2,7 @@ extends PanelContainer
 
 var ticket = preload("res://Object/Ticket.tscn")
 
-func _on_buy_button_pressed() -> void:
+func _on_buy_button_pressed() -> void: #Quand on appuit sur le bouton Buy
 	MoneyManager.updateMoney(-2)
 	var ticket_instance = ticket.instantiate()
 	
