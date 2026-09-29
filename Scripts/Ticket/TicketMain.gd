@@ -6,7 +6,7 @@ func _on_buy_button_pressed() -> void: #Quand on appuit sur le bouton Buy
 	MoneyManager.updateMoney(-2)
 	var ticket_instance = ticket.instantiate()
 	
-	var horizontal_position = randf_range(150.0, 750.0) #Faudrait modifier les valeurs pour que ça s'adapte à la taille de l'écran mais jsp comment faire
+	var horizontal_position = randf_range(150.0, size.x - 150) #Résolu ? Faudrait modifier les valeurs pour que ça s'adapte à la taille de l'écran mais jsp comment faire
 	
 	ticket_instance.position = Vector2(horizontal_position, 0)
 	ticket_instance.scale = Vector2(0.2, 0.2)
