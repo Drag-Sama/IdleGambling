@@ -18,11 +18,13 @@ var _drag_offset: Vector2 = Vector2.ZERO
 var _hold_timer: Timer
 
 var _zone_revealed = 0 #Nombre de zone révélé
-var _ticket_value = 0 #Valeur total du ticket
+var _ticket_value : int = 0
 
 var _max_zone_value = 2 #Nombre de dessin qu'il peut y avoir pour une zone 
 var _min_zone_value = 0 #Valeur minimal, c'est au cas ou on fait une upgrade qui empeche de tomber sur une zone vide
-var _value_proba = [40, 30, 30] #Proba de chaque valeur
+var _value_proba = [40, 35, 25] #Proba de chaque valeur
+var _value_money = [0, 1, 3] #Tableau des valeurs en argent
+var _values = [] #Liste des valeurs des zones
 
 signal is_selected()
 
@@ -65,20 +67,47 @@ func _get_random_value(): #Renvoie la valeur d'une zone selon les propabilités
 func _spawn(pos: Vector2): #Fais spawn une zone
 	var scratchZone_instance = scratchZone.instantiate()
 	scratchZone_instance.position = pos
-	scratchZone_instance.value = _get_random_value()
+	var _zone_value = _get_random_value()
+	_values.append(_zone_value)
+	scratchZone_instance.value = _zone_value
 	scratchZone_instance.revealed.connect(_on_zone_revealed)
 	self.is_selected.connect(scratchZone_instance.on_selected)
 	background.add_child(scratchZone_instance)
 
 func _on_zone_revealed(value): #Quand une zone est suffisament révélé
-	_ticket_value = _ticket_value + value
 	_zone_revealed += 1
 	if _zone_revealed == INSTANCE_COUNT:
-		if _ticket_value == _max_zone_value * INSTANCE_COUNT:
-			print("JACKPOT")
-			_ticket_value = _ticket_value * 3
 		claim.visible = true
-		claim.text = "Claim(" + str(_ticket_value) + ")" 
+		_calculate_ticket_value()
+
+func _calculate_ticket_value():
+	_ticket_value = 0
+	for val in _values:
+		_ticket_value += _value_money[val]
+		
+	if(_all_same(_values)):
+		_ticket_value = _ticket_value * (INSTANCE_COUNT + 1)
+		print("JACKPOT")
+	else:
+		_ticket_value = _ticket_value * _end_combo_multp()
+		
+		
+
+	claim.text = "Claim(" + str(_ticket_value) + ")"
+
+func _all_same(arr : Array) -> bool:
+	for i in range(1, arr.size()):
+		if arr[i] != arr[0]:
+			return false
+	return true 
+
+func _end_combo_multp() -> float: #Vérifie si les valeurs sont comme [X Y X] ou [Y X X Y]
+	var _combo_mult = 1
+	if _values[0] == _values[_values.size()-1]:
+		_combo_mult += 0.5
+		if _all_same(_values.slice(1, _values.size() - 1)):
+			_combo_mult += 0.5
+	return _combo_mult
 		
 
 func _on_background_gui_input(event: InputEvent) -> void: #Se déclenche quand on clique sur le ticket
