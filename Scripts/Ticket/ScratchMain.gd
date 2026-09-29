@@ -4,6 +4,7 @@ var scratchZone = preload("res://Object/ScratchZone.tscn")
 @onready var background: TextureRect = $Background
 @onready var claim: Button = $Claim
 
+#TODO random le background du ticket et le titre
 const CONTAINER_SIZE = 640
 const INSTANCE_COUNT = 3 #Nombre de zone
 const BACKGROUND_COLORS = [0x2ba2fbff, 0x25e854ff, 0xe1ca32ff] #Pour faire des tickets de couleur random plus tard mais ça marche pas trop pour le moment
