@@ -1,4 +1,4 @@
-extends PanelContainer
+extends MarginContainer
 
 var ticket = preload("res://Object/Ticket.tscn")
 

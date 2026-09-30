@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://c7sufmx758hp2"]
+
+[ext_resource type="Script" uid="uid://be01rqdcai0k2" path="res://Scripts/Ticket/TicketMain.gd" id="2_sblpm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f64mx"]
+bg_color = Color(0.3175655, 0.57691777, 0.8955186, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sblpm"]
+bg_color = Color(0.19067332, 0.44969678, 0.75689185, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r34rm"]
+bg_color = Color(0.25799876, 0.52663964, 0.8513023, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ticketScene" type="Control" unique_id=694501630]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=840932521]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("2_sblpm")
+
+[node name="BuyButton" type="Button" parent="MarginContainer" unique_id=1305258937]
+custom_minimum_size = Vector2(170, 40)
+custom_maximum_size = Vector2(300, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_f64mx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_sblpm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_r34rm")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f64mx")
+theme_override_styles/focus = SubResource("StyleBoxFlat_f64mx")
+text = "Buy"
+
+[connection signal="pressed" from="MarginContainer/BuyButton" to="MarginContainer" method="_on_buy_button_pressed"]
