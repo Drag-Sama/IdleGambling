@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cyifkqoqjsyul"]
 
+[ext_resource type="Script" uid="uid://cl6sjrtnwy46a" path="res://Scripts/SlotMachine/SlotMachineMain.gd" id="1_8p0ns"]
 [ext_resource type="Texture2D" uid="uid://poeu3jcnk3en" path="res://Assets/Sprite/SlotMachine/Machine/slot-machine.png" id="1_bf2qq"]
 [ext_resource type="Texture2D" uid="uid://boub86orqm4xl" path="res://Assets/Sprite/SlotMachine/Lever/lever1.png" id="1_rduga"]
 [ext_resource type="Texture2D" uid="uid://qqngkx4wbij8" path="res://Assets/Sprite/SlotMachine/Lever/lever2.png" id="2_8p0ns"]
@@ -7,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://dbmtnrfrl8jlr" path="res://Assets/Sprite/SlotMachine/Lever/lever4.png" id="4_12n2g"]
 [ext_resource type="Texture2D" uid="uid://go5fgvtxurnf" path="res://Assets/Sprite/SlotMachine/Lever/lever5.png" id="5_qaamg"]
 [ext_resource type="Texture2D" uid="uid://b4cmdnywkca20" path="res://Assets/Sprite/SlotMachine/Lever/lever6.png" id="6_2hxhc"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kufsv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_iqlga"]
 animations = [{
@@ -29,7 +32,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("6_2hxhc")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"default",
 "speed": 10.0
 }]
@@ -37,12 +40,25 @@ animations = [{
 [node name="SlotMachine" type="Control" unique_id=149221367]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_8p0ns")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1321183764]
+[node name="LeverButton" type="TextureButton" parent="." unique_id=558142787]
+layout_mode = 0
+offset_left = 62.0
+offset_top = -37.0
+offset_right = 122.0
+offset_bottom = 86.0
+texture_normal = SubResource("PlaceholderTexture2D_kufsv")
+
+[node name="Lever" type="AnimatedSprite2D" parent="." unique_id=1321183764]
 position = Vector2(92, 23)
 scale = Vector2(1.8, 1.8)
 sprite_frames = SubResource("SpriteFrames_iqlga")
+frame_progress = 0.78358203
 
 [node name="SlotMachine" type="Sprite2D" parent="." unique_id=2038019589]
 scale = Vector2(2, 2)
 texture = ExtResource("1_bf2qq")
+
+[connection signal="pressed" from="LeverButton" to="." method="_on_lever_button_pressed"]
+[connection signal="animation_finished" from="Lever" to="." method="_on_lever_animation_finished"]

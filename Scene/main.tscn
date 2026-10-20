@@ -90,10 +90,9 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Instances" type="TabContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer" unique_id=105987084]
 layout_mode = 2
-current_tab = 1
+current_tab = 0
 
 [node name="SlotMachineContainer" type="CenterContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances" unique_id=1071798249]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -101,6 +100,7 @@ metadata/_tab_index = 0
 layout_mode = 2
 
 [node name="TicketContainer" type="Control" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances" unique_id=717022699]
+visible = false
 layout_mode = 2
 script = ExtResource("2_sblpm")
 metadata/_tab_index = 1
