@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://cavhjnnwldc54"]
 
-[ext_resource type="Script" uid="uid://or4ssiyofrmi" path="res://Scripts/moneyInterface.gd" id="1_f6udf"]
-[ext_resource type="PackedScene" uid="uid://c7sufmx758hp2" path="res://Scene/ticketScene.tscn" id="2_sblpm"]
+[ext_resource type="Script" uid="uid://or4ssiyofrmi" path="res://Scripts/moneyInterface.gd" id="1_sblpm"]
+[ext_resource type="Script" uid="uid://be01rqdcai0k2" path="res://Scripts/Ticket/TicketMain.gd" id="2_sblpm"]
+[ext_resource type="PackedScene" uid="uid://cyifkqoqjsyul" path="res://Object/SlotMachine.tscn" id="3_r34rm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vffx"]
 bg_color = Color(0.6071361, 0.4745199, 0.5424723, 1)
@@ -53,11 +54,51 @@ layout_mode = 2
 text = "Money:0"
 label_settings = SubResource("LabelSettings_0524h")
 
-[node name="MainContainer" type="PanelContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer" unique_id=1686940859]
+[node name="MainContainer" type="PanelContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer" unique_id=1226170746]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.86
-theme_override_styles/panel = SubResource("StyleBoxFlat_g0fr2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uiwfw")
 
-[node name="ticketScene" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer" unique_id=694501630 instance=ExtResource("2_sblpm")]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer" unique_id=1532462762]
 layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Instances" type="TabContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer" unique_id=105987084]
+layout_mode = 2
+current_tab = 1
+
+[node name="SlotMachineContainer" type="CenterContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances" unique_id=1071798249]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="SlotMachine" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances/SlotMachineContainer" unique_id=149221367 instance=ExtResource("3_r34rm")]
+layout_mode = 2
+
+[node name="TicketContainer" type="Control" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances" unique_id=717022699]
+layout_mode = 2
+script = ExtResource("2_sblpm")
+metadata/_tab_index = 1
+
+[node name="BuyButton" type="Button" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances/TicketContainer" unique_id=911768733]
+custom_minimum_size = Vector2(170, 40)
+custom_maximum_size = Vector2(300, 70)
+layout_mode = 0
+offset_left = 369.0
+offset_top = 492.0
+offset_right = 539.0
+offset_bottom = 532.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_f64mx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_sblpm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_r34rm")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_f64mx")
+theme_override_styles/focus = SubResource("StyleBoxFlat_f64mx")
+text = "Buy"
+
+[connection signal="pressed" from="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances/TicketContainer/BuyButton" to="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances/TicketContainer" method="_on_buy_button_pressed"]
