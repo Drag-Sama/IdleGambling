@@ -1,5 +1,7 @@
 extends Control
 
+class_name Reel
+
 const VISIBLE_SLOTS := 3
 const DIR_SYMBOLS = "res://Assets/Sprite/SlotMachine/Machine/Reels/"
 const SYMBOLS = ["7","10","dollar"]
@@ -44,9 +46,46 @@ func _ready() -> void:
 		reel.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		reel.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		add_child(reel)
-		
+		reel_rects.append(reel)
 		y_offset += height
 
+################ ANIMATION REEL #################
+
+var reel_rects: Array[TextureRect] = []
+var scroll_offset := 0.0
+var tween : Tween
+
+func upd_reel_positions() -> void:
+	var base_positions = [0.0, size.y * 0.25, size.y * 0.75]
+	var heights = [size.y * 0.25,size.y * 0.5,size.y * 0.25]
+	for i in reel_rects.size() :
+		var reel = reel_rects[i]
+		var old_y = reel.position.y
+		var new_y = fmod(base_positions[i] + scroll_offset, size.y)
+		if new_y < old_y : #il vient de boucler (retombé en haut)
+			reel.texture = get_texture_symbol(get_random_symbol())
+		reel.position.y = new_y
+
+func _on_spin_finished() -> void:
+	reel_rects[1].texture = final_result
+
+func _on_scroll_update(value: float) -> void:
+	scroll_offset = value
+	upd_reel_positions()
+
+var final_result: Texture2D
+
+func spin(result: Texture2D) -> void:
+	final_result = result
+	var nb_tours := 15
+	var duree := 2.0
+	var cible := scroll_offset + nb_tours * size.y
+	
+	tween = create_tween()
+	tween.tween_method(_on_scroll_update,scroll_offset,cible,duree)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.finished.connect(_on_spin_finished)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

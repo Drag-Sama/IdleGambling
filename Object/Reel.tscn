@@ -2,9 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dqcwt1o42uo00" path="res://Scripts/SlotMachine/Reel.gd" id="1_ofn2r"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i7114"]
-load_path = "res://.godot/imported/7.png-33903cc5f1b63ea9fc5d7ff65c34d909.ctex"
-
 [node name="Reel" type="Control" unique_id=1508799026]
 texture_filter = 1
 custom_minimum_size = Vector2(26, 156)
@@ -14,4 +11,3 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_ofn2r")
-symbols = Array[Texture2D]([SubResource("CompressedTexture2D_i7114"), null, null])
