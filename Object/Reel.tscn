@@ -1,14 +1,17 @@
 [gd_scene format=3 uid="uid://cey507ug75kf3"]
 
 [ext_resource type="Script" uid="uid://dqcwt1o42uo00" path="res://Scripts/SlotMachine/Reel.gd" id="1_ofn2r"]
-[ext_resource type="Texture2D" uid="uid://bspy27alu8s3g" path="res://Assets/Sprite/SlotMachine/Machine/Reels/7.png" id="2_wk4xj"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i7114"]
+load_path = "res://.godot/imported/7.png-33903cc5f1b63ea9fc5d7ff65c34d909.ctex"
 
 [node name="Reel" type="Control" unique_id=1508799026]
-custom_minimum_size = Vector2(120, 360)
+texture_filter = 1
+custom_minimum_size = Vector2(26, 156)
 clip_contents = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_ofn2r")
-symbols = Array[Texture2D]([ExtResource("2_wk4xj"), null, null])
+symbols = Array[Texture2D]([SubResource("CompressedTexture2D_i7114"), null, null])
