@@ -4,7 +4,8 @@ var reels: Array[Reel] = []
 const DIR_SYMBOLS = "res://Assets/Sprite/SlotMachine/Machine/Reels/"
 
 var current_result : Array[Texture2D] = []
-var current_value := 1
+const BASE_BET_VALUE := 1
+var bet_value := BASE_BET_VALUE
 
 var weight_symbols := {
 	"7": 30,
@@ -62,9 +63,9 @@ func calculate_gain(results: Array[Texture2D], value: int) -> int :
 			best_name = name
 	var gain := 0
 	if best_count == 2 :
-		gain = paytable.get(best_name,0) / 2
+		gain = value * paytable.get(best_name,0) / 2
 	elif best_count == 3 :
-		gain = paytable.get(best_name,0)
+		gain = value * paytable.get(best_name,0)
 	print("Gain: ", gain, " (", best_count, "x ", best_name, "| base value = ", value, ")")
 	return gain
 
@@ -92,8 +93,11 @@ func _on_reel_spin_finished() -> void:
 	if reels_finished == reels.size():
 		lever_ready = true
 		# TODO calculer gain
-		MoneyManager.updateMoney(calculate_gain(current_result,current_value))
+		MoneyManager.updateMoney(calculate_gain(current_result,bet_value))
 	return
+
+func _on_lever_animation_finished() -> void:
+	$Lever.frame = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -102,12 +106,13 @@ func _ready() -> void:
 			reels.append(child)
 			child.get_next_symbol = get_random_texture_symbol_by_weight
 			child.spin_finished.connect(_on_reel_spin_finished)
+	UpgradeManager.upgrade_bought.connect(_on_upgrade_bought)
+	_update_bet()
 
+######### UPGRADES PART ###########
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_upgrade_bought(_id: String) -> void:
+	_update_bet()
 
-
-func _on_lever_animation_finished() -> void:
-	$Lever.frame = 0
+func _update_bet() -> void:
+	bet_value = BASE_BET_VALUE + UpgradeManager.get_bonus("bet_value")

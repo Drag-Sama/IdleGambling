@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://c7sufmx758hp2"]
 
 [ext_resource type="Script" uid="uid://or4ssiyofrmi" path="res://Scripts/moneyInterface.gd" id="1_sblpm"]
+[ext_resource type="Script" uid="uid://c7x617yoi8ka8" path="res://Scripts/sidebar.gd" id="2_2wwxx"]
 [ext_resource type="Script" uid="uid://be01rqdcai0k2" path="res://Scripts/Ticket/TicketMain.gd" id="2_sblpm"]
+[ext_resource type="Script" uid="uid://btbp8ojul1vjp" path="res://Scripts/Upgrades/UpgradeData.gd" id="3_1xcnr"]
 [ext_resource type="PackedScene" uid="uid://cyifkqoqjsyul" path="res://Object/SlotMachine.tscn" id="3_r34rm"]
+[ext_resource type="Resource" uid="uid://b3idgrwo3pkph" path="res://Scripts/Upgrades/SlotMachine/slot_base_value.tres" id="4_ow1sv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5v3e5"]
 bg_color = Color(0.6071361, 0.4745199, 0.5424723, 1)
@@ -65,10 +68,36 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Sidebar" type="PanelContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer" unique_id=1746759364]
+[node name="Sidebar" type="PanelContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer" unique_id=1746759364 node_paths=PackedStringArray("tickets_list", "slot_list")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_uiwfw")
+script = ExtResource("2_2wwxx")
+upgrades = Array[ExtResource("3_1xcnr")]([ExtResource("4_ow1sv")])
+tickets_list = NodePath("VBoxContainer/TicketsHeader/TicketsUpgrades")
+slot_list = NodePath("VBoxContainer/SlotHeader/SlotUpgrades")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/Sidebar" unique_id=1821369053]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TicketsHeader" type="FoldableContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/Sidebar/VBoxContainer" unique_id=1329611589]
+layout_mode = 2
+folded = true
+title = "Tickets"
+
+[node name="TicketsUpgrades" type="VBoxContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/Sidebar/VBoxContainer/TicketsHeader" unique_id=1983370122]
+visible = false
+layout_mode = 2
+
+[node name="SlotHeader" type="FoldableContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/Sidebar/VBoxContainer" unique_id=615585851]
+layout_mode = 2
+folded = true
+title = "Slot-machine"
+
+[node name="SlotUpgrades" type="VBoxContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/Sidebar/VBoxContainer/SlotHeader" unique_id=1182608047]
+visible = false
+layout_mode = 2
 
 [node name="Money" type="Label" parent="MarginContainer/Background/MarginContainer/HBoxContainer/Sidebar" unique_id=1670914291]
 layout_mode = 2
@@ -92,12 +121,33 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 current_tab = 0
 
-[node name="SlotMachineContainer" type="CenterContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances" unique_id=1071798249]
+[node name="SlotMachineContainer" type="Control" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances" unique_id=1843718041]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="SlotMachine" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances/SlotMachineContainer" unique_id=149221367 instance=ExtResource("3_r34rm")]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances/SlotMachineContainer" unique_id=1071798249]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -31.0
+
+[node name="SlotMachine" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances/SlotMachineContainer/CenterContainer" unique_id=149221367 instance=ExtResource("3_r34rm")]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances/SlotMachineContainer" unique_id=1696265899]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -503.0
+offset_top = 411.0
+offset_right = -411.0
+offset_bottom = -143.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Base value :"
+horizontal_alignment = 1
 
 [node name="TicketContainer" type="Control" parent="MarginContainer/Background/MarginContainer/HBoxContainer/MainContainer/MarginContainer/Instances" unique_id=717022699]
 visible = false
