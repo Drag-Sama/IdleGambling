@@ -19,7 +19,7 @@ var paytable := {
 }
 
 var reels_finished := 0
-var lever_ready := true # pour pas pouvoir spam le levier (ça décale les reels vers le bas sinn puis ça sert à rien)
+var lever_ready := true # pour pas pouvoir spam le levier (ça décale les reels vers le bas sinon puis ça sert à rien)
 
 ############ GETTERS ############
 
@@ -47,6 +47,27 @@ func get_random_texture_symbol_by_weight() -> Texture2D :
 
 ################################
 
+func calculate_gain(results: Array[Texture2D], value: int) -> int :
+	var names = results.map(get_symbol_name)
+	#count occurences of each symbols
+	var count := {}
+	for name in names :
+		count[name] = count.get(name,0) + 1 # ici, .get(_,0) défini 0 en valeur par défaut, ce qui évite de vérifier si il y a déjà cet élt dans le dict
+	# find the most frequent symbol and his occurences
+	var best_name := ""
+	var best_count := 0
+	for name in count.keys():
+		if count[name] > best_count :
+			best_count = count[name]
+			best_name = name
+	var gain := 0
+	if best_count == 2 :
+		gain = paytable.get(best_name,0) / 2
+	elif best_count == 3 :
+		gain = paytable.get(best_name,0)
+	print("Gain: ", gain, " (", best_count, "x ", best_name, "| base value = ", value, ")")
+	return gain
+
 func draw_result() -> Array[Texture2D] :
 	var results: Array[Texture2D] = []
 	for r in reels :
@@ -71,6 +92,7 @@ func _on_reel_spin_finished() -> void:
 	if reels_finished == reels.size():
 		lever_ready = true
 		# TODO calculer gain
+		MoneyManager.updateMoney(calculate_gain(current_result,current_value))
 	return
 
 # Called when the node enters the scene tree for the first time.
