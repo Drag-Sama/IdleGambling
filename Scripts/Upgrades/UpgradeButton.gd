@@ -2,16 +2,22 @@ extends Button
 
 var upg: UpgradeData
 
+signal hovered(upg: UpgradeData,button: Control)
+signal unhovered
+
 func setup(u: UpgradeData) -> void :
 	upg = u
 	UpgradeManager.register(u)
 	_refresh()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pressed.connect(_on_pressed)
 	UpgradeManager.upgrade_bought.connect(_on_upgrade_bought)
 	MoneyManager.money_changed.connect(_on_money_changed)
+	mouse_entered.connect(func(): hovered.emit(upg, self))
+	mouse_exited.connect(func(): unhovered.emit())
 
 func _on_pressed() -> void :
 	UpgradeManager.buy(upg)

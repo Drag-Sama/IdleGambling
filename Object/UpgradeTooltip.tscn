@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://decj2arlsd8nl"]
+
+[ext_resource type="Script" uid="uid://d0j2i1e7m7ppi" path="res://Scripts/Upgrades/UpgradeTooltip.gd" id="1_yjcnt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wqod"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.12763423, 0.12763423, 0.12763423, 0.70980394)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_blend = true
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="UpgradeTooltip" type="PanelContainer" unique_id=2112628781]
+offset_right = 370.0
+offset_bottom = 123.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3wqod")
+script = ExtResource("1_yjcnt")
+
+[node name="Label" type="RichTextLabel" parent="." unique_id=1652061244]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/line_separation = -1
+bbcode_enabled = true
+fit_content = true
