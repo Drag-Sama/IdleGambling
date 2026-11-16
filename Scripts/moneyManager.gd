@@ -10,5 +10,8 @@ func updateMoney(addValue) -> void:
 		money_changed.emit(money)
 		add_money.emit(addValue > 0)
 
-func can_afford(cost: float) -> bool:
-	return money >= cost
+func try_spend(value: float) -> bool :
+	if value <= money :
+		updateMoney(-value)
+		return true
+	return false
