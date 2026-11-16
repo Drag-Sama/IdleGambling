@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c7sufmx758hp2"]
+[gd_scene format=3 uid="uid://cavhjnnwldc54"]
 
 [ext_resource type="Script" uid="uid://or4ssiyofrmi" path="res://Scripts/moneyInterface.gd" id="1_sblpm"]
 [ext_resource type="Script" uid="uid://c7x617yoi8ka8" path="res://Scripts/sidebar.gd" id="2_2wwxx"]
@@ -8,45 +8,24 @@
 [ext_resource type="Resource" uid="uid://b3idgrwo3pkph" path="res://Scripts/Upgrades/SlotMachine/slot_base_value.tres" id="4_ow1sv"]
 [ext_resource type="PackedScene" uid="uid://decj2arlsd8nl" path="res://Object/UpgradeTooltip.tscn" id="7_ow1sv"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5v3e5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vffx"]
 bg_color = Color(0.6071361, 0.4745199, 0.5424723, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uiwfw"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0fr2"]
 bg_color = Color(0.755591, 0.56039196, 0.22410941, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_sblpm"]
+[sub_resource type="LabelSettings" id="LabelSettings_0524h"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f64mx"]
-bg_color = Color(0.3175655, 0.57691777, 0.8955186, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sblpm"]
-bg_color = Color(0.19067332, 0.44969678, 0.75689185, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r34rm"]
-bg_color = Color(0.25799876, 0.52663964, 0.8513023, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[node name="Main" type="Control" unique_id=694501630]
+[node name="Levraimain" type="Control" unique_id=1220709385]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_sblpm")
+script = ExtResource("1_f6udf")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2097608915]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=543557950]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,18 +33,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="PanelContainer" parent="MarginContainer" unique_id=1128216755]
+[node name="Background" type="PanelContainer" parent="MarginContainer" unique_id=331453665]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5v3e5")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3vffx")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Background" unique_id=2045056154]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Background" unique_id=230150414]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Background/MarginContainer" unique_id=282118722]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Background/MarginContainer" unique_id=503487667]
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -100,10 +79,10 @@ title = "Slot-machine"
 visible = false
 layout_mode = 2
 
-[node name="Money" type="Label" parent="MarginContainer/Background/MarginContainer/HBoxContainer/Sidebar" unique_id=1670914291]
+[node name="Money" type="Label" parent="MarginContainer/Background/MarginContainer/HBoxContainer/Sidebar" unique_id=1727944770]
 layout_mode = 2
 text = "Money:0"
-label_settings = SubResource("LabelSettings_sblpm")
+label_settings = SubResource("LabelSettings_0524h")
 
 [node name="MainContainer" type="PanelContainer" parent="MarginContainer/Background/MarginContainer/HBoxContainer" unique_id=1226170746]
 layout_mode = 2
